@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
-from langchain_ollama import ChatOllama
 from langchain_core.prompts import PromptTemplate
+from langchain_ollama import ChatOllama
+from langchain_openai import ChatOpenAI
 
 load_dotenv()
 
@@ -26,7 +26,6 @@ Elon Reeve Musk was born on June 28, 1971, in Pretoria, South Africa's administr
 His maternal grandfather, Joshua N. Haldeman, who died in a plane crash when Musk was a toddler, was an American-born Canadian chiropractor, aviator and political activist in the Technocracy movement[14][15] who moved to South Africa in 1950.[16] Haldeman's anti-government, anti-democratic and conspiracist views, which included the promotion of far-right antisemitic conspiracy theories,[17][18] "fanatical" support of apartheid,[18] and according to Errol, support of Nazism,[16] have been suggested as an influence on Musk.[19][20][21][22] During his childhood, Musk was told stories by his grandmother of Haldeman's travels and exploits, and he has suggested that all of Haldeman's descendants have his "desire for adventure, exploration – doing crazy things".[23].
     """
 
-
     summary_template = """
     Summarize the following information about {information} to create:
     1. A short summary of the information
@@ -37,12 +36,13 @@ His maternal grandfather, Joshua N. Haldeman, who died in a plane crash when Mus
         template=summary_template, input_variables=["information"]
     )
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
-    #llm = ChatOllama(model="gemma3:4b", temperature=0)
+    # llm = ChatOllama(model="gemma3:4b", temperature=0)
     summary_chain = summary_prompt | llm
 
     response = summary_chain.invoke(input={"information": information})
 
     print(response.content)
+
 
 if __name__ == "__main__":
     main()
